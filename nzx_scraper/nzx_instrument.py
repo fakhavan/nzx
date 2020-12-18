@@ -1,17 +1,23 @@
-from nzx_mainboard_stock import nzx_mainboard_stock
-from bs4 import BeautifulSoup
+import bs4
 import requests
 
-class nzx_stocks():
-    
-    def __init__(self, url="https://www.nzx.com/markets/NZSX"):
-        self.all_stocks_html = self.get_stock_list(url)
-        self.stocks = []
-        for stock_raw in self.all_stocks_html:
-            self.stocks += [nzx_mainboard_stock(stock_raw)]
+class nzx_instrument():
+    def __init__(self):
+        self.stock_ticker = None
+        self.stock_name = None
+        self.trading_status = None
+        self.trades = None
+        self.value = None
+        self.volune = None
+        self.capitalisation = None
+        self.open = None
+        self.high = None
+        self.low = None
+        self.high_bid = None
+        self.low_offer = None
+        self.pe = None
+        self.eps = None
+        self.nta = None
+        self.gross_div = None
+        self.num_securities = None
 
-    def get_stock_list(self, url):
-        page = requests.get(url)
-        soup = BeautifulSoup(page.content, "html.parser")
-        all_stocks = soup.find(id="instruments-table").tbody.findAll('tr')
-        return all_stocks
