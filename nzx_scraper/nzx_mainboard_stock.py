@@ -11,6 +11,16 @@ class nzx_mainboard_stock():
         self.volume = self.get_volume(stock_raw)
         self.capitalisation = self.get_capitalisation(stock_raw)
 
+    def as_dict(self):
+        return { self.ticker: {
+            "name": self.name,
+            "price": self.price,
+            "change": self.change,
+            "value": self.value,
+            "volume": self.volume,
+            "capitalisation": self.capitalisation
+        }}
+
     def get_ticker(self, stock_raw):
         result = None
         result = stock_raw.find('td').find('strong', class_="").text
