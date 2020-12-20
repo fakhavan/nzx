@@ -1,6 +1,6 @@
 from nzx_mainboard_stock import nzx_mainboard_stock
 from bs4 import BeautifulSoup
-import requests
+import requests, json
 
 class nzx_stocks():
     
@@ -15,3 +15,9 @@ class nzx_stocks():
         soup = BeautifulSoup(page.content, "html.parser")
         all_stocks = soup.find(id="instruments-table").tbody.findAll('tr')
         return all_stocks
+
+    def as_dict(self):
+        stocks_dict = {}
+        for stock in self.stocks:
+            stocks_dict.update(stock.as_dict())
+        return stocks_dict
